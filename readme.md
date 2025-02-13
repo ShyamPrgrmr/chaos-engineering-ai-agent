@@ -5,4 +5,9 @@
 2. Then run below command. 
 > sudo bash initscript.sh 
 
-3. Once you get "Setup completed successfully!", the initialization of host successful.  
+3. Once you the setup is completed, run below command to get private key and copy the content. 
+> sudo cat /root/ai-agent.pem 
+
+4. Now, create a folder and file "./Tools API/helper/host/creds/passkey.pem" and paste the copied content. 
+
+5. Run the "python main.py". 
