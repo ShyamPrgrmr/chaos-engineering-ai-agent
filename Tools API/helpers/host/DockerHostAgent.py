@@ -1,5 +1,5 @@
 from pathlib import Path
-import paramiko
+import paramiko # type: ignore
 
 #This class will maintain SSH to docker-agent host. 
 
