@@ -24,34 +24,13 @@ install_docker() {
 }
 
 
-check_docker_compose() {
-    if command -v docker-compose &> /dev/null; then
-        echo "Docker Compose is already installed."
-    else
-        echo "Docker Compose is not installed. Installing now..."
-        install_docker_compose
-    fi
-}
-
-install_docker_compose() {
-    sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
-    echo "Docker Compose installation completed."
-}
-
-
 check_docker
-check_docker_compose
-
-
 
 echo "Creating folder structure..."
 mkdir -p /tmp/prometheus/
 mkdir -p /tmp/jmeter/
 mkdir -p /tmp/app/
 echo "Folder structure created successfully."
-
-
 
 echo "Starting Socat proxy container..."
 docker run -d --name socat-proxy --restart always -p 2376:2376 -v /var/run/docker.sock:/var/run/docker.sock alpine/socat TCP-LISTEN:2376,fork UNIX-CONNECT:/var/run/docker.sock
