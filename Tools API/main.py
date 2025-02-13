@@ -1,15 +1,16 @@
 from helpers.host.DockerHostAgent import DockerHostAgent as DockerHostAgent
 
 class ToolsAPI:
-    def __init__(self):
-        pass
-    
+    def __init__(self, hostname):
+        self.__host = DockerHostAgent(hostname)
+        
     def initDockerHost(self):
-        host = DockerHostAgent("ec2-44-205-243-53.compute-1.amazonaws.com")
-        host.createConnection()
-        output = host.executeCommand("ls -ltr")
-        print(output)
+        output, error = self.__host.executeCommand("docker ps")
+        
+        print("Output : " + output)
+        print("Error : " + error)
 
 if __name__=="__main__":
-    pass
+    tools = ToolsAPI("ec2-44-205-243-53.compute-1.amazonaws.com")
+    tools.initDockerHost()
 
