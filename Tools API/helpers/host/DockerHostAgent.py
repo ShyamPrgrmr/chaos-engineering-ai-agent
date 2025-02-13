@@ -29,7 +29,29 @@ class DockerHostAgent:
         except Exception as e:
             print(f"executeCommand Exception : {e}")
 
+    def executeCommands(self, commands):
+        try:
+            outputs = []
+            self.__ssh_client.connect(self.__hostname, username=self.__username, pkey=self.__private_key)
+            
+            for command in commands:
+                stdin, stdout, stderr = self.__ssh_client.exec_command(command)
+                outputs.append( { "command":command, "output":stdout.read().decode(), "error":stderr.read().decode()})
+                
+            isError = self.__checkErrorIfAny(outputs)
+            self.__ssh_client.close()
+            
+            return outputs, isError
+        
+        except Exception as e:
+            print(f"executeCommand Exception : {e}")
 
+    def __checkErrorIfAny(self, outputs):
+        for output in outputs:
+            if(len(output["error"]) > 0):
+                print("There is an error while running command: " + output["error"])
+                return True
+        return False
 
 if __name__=="__main__":
     DockerHostAgent("shyam")
