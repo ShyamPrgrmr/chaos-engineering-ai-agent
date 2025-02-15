@@ -6,3 +6,5 @@ class ContainerOperations(Enum):
     GET = "get"
     MAIN = "containers"
     START = "start"
+    REMOVE = "remove"
+    UPDATE = "update"
