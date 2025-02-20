@@ -2,7 +2,7 @@
 Used in : (/tools/docker/DockerHostAgent.py)
 '''
 
-PASSKEYFILEPATH = "./secrets/passkey.pem"
+PASSKEYFILEPATH = "/secrets/passkey.pem"
 USERNAME = "ai-agent"
 
 '''

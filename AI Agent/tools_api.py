@@ -21,8 +21,6 @@ class ToolsAPI:
                 
         self.dockerInterfaceHelper = DockerInterfaceHelper(hostname=hostname, proto=protocol, api_version=apiVersion)
         self.dockerHostHelper = DockerHostHelper(hostname)
-
-
      
     '''
     This method will run "https://raw.githubusercontent.com/ShyamPrgrmr/Performance-testing-ai-agent/refs/heads/main/Node%20Agent/script.sh" file on docker host which will run the prometheus, docker-exporter and socat containers on system. 
@@ -33,10 +31,11 @@ class ToolsAPI:
         self.__config.read(APPLICATIONCONFIG)
         commands.append(self.__config.get(DOCKERHOST,DOWNLOADSHELLSCRIPT))
         commands.append(self.__config.get(DOCKERHOST,RUNSHELLSCRIPT))
-        outputs, iserror = self.dockerHostHelper.executeCommands(commands)
+        outputs = self.dockerHostHelper.executeCommands(commands)
+        return self.dockerHostHelper
 
     def initDockerInterface(self):
-        pass
+        return self.dockerInterfaceHelper
 
 if __name__=="__main__":
     pass
