@@ -1,10 +1,6 @@
 import requests, json
 from constants.httpresponses import HTTPResponses
-
-
-import logging
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
+from common.logger import logger
 
 class killContainer:
     def __init__(self, endpoint, killPath, removePath):

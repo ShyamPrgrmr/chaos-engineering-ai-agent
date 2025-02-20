@@ -1,18 +1,16 @@
 from pathlib import Path
 import paramiko # type: ignore
-import os
-import stat
+from constants.constants import PASSKEYFILEPATH, USERNAME
+
 
 #This class will maintain SSH to docker-agent host. 
-
 class DockerHostAgent:
     def __init__(self, hostname):
         try:
             self.__hostname = hostname
-            self.__username = "ai-agent"
+            self.__username = USERNAME
             directory = Path().absolute()
-            path = str(directory) + str(Path("/helpers/host/creds/passkey.pem"))
-            self.setPermissionForPrivateKeyFile(path)
+            path = str(directory) +"/"+ str(Path(PASSKEYFILEPATH))
             self.__private_key = paramiko.RSAKey(filename=path)
             self.__ssh_client = paramiko.SSHClient()
             self.__ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -20,10 +18,6 @@ class DockerHostAgent:
             
         except Exception as e:
             print (f"Constructor Exception {e}")
-
-    def setPermissionForPrivateKeyFile(self, path):
-        os.chmod(path, stat.S_IRUSR | stat.S_IWUSR)
-        print("Permission changed")
 
     def executeCommand(self, command):
         try:
@@ -60,4 +54,4 @@ class DockerHostAgent:
         return False
 
 if __name__=="__main__":
-    DockerHostAgent("shyam")
+    DockerHostAgent("DEVELOPER - SHYAM PRADHAN")

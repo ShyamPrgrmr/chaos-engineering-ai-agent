@@ -1,2 +1,4 @@
 /config/docker-host.ini
 /test.py
+/secrets/passkey.pem
+/output/application.log

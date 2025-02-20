@@ -48,6 +48,6 @@ docker run -p 9487:9487 --network agent-network --ip 192.168.0.10 -d --name data
 echo "Creating prometheus server"
 
 curl https://raw.githubusercontent.com/ShyamPrgrmr/Performance-testing-ai-agent/refs/heads/main/Node%20Agent/prometheus/prmoetheus.yaml > /tmp/prometheus/prometheus.yml
-sudo docker run --name prometheus --network agent-network --restart always -d -p 9090:9090 -v /tmp/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml  prom/prometheus
+docker run --name prometheus --network agent-network --restart always -d -p 9090:9090 -v /tmp/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml  prom/prometheus
 
 echo "Initialization completed."
