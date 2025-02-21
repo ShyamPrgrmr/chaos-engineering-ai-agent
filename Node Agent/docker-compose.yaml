@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    networks:
+      - chaos-network
+    ports:
+      - "80:80"
+    volumes:
+      - /tmp/app/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /tmp/app:/tmp/agent
+
+  docker-exporter:
+    image: wywywywy/docker_stats_exporter
+    container_name: docker-exporter
+    restart: always
+    networks:
+      - chaos-network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: always
+    depends_on:
+      - docker-exporter
+    networks:
+      - chaos-network
+    volumes:
+      - /tmp/app/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  socat:
+    image: alpine/socat
+    container_name: socat
+    restart: always
+    networks:
+      - chaos-network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: TCP-LISTEN:2376,fork UNIX-CONNECT:/var/run/docker.sock
+
+networks:
+  chaos-network:
+    driver: bridge

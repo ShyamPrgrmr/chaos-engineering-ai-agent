@@ -27,8 +27,6 @@ install_docker() {
 check_docker
 
 echo "Creating folder structure..."
-mkdir -p /tmp/prometheus/
-mkdir -p /tmp/jmeter/
 mkdir -p /tmp/app/
 echo "Folder structure created successfully."
 
