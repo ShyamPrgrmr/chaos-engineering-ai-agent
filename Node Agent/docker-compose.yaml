@@ -1,6 +1,16 @@
 version: '3.8'
 
 services:
+
+  fileuploader:
+    image: shyamya/fileuploader
+    container_name: fileuploader
+    restart: always
+    networks:
+      - chaos-network
+    voulmes:
+      - /tmp/app:/tmp/agent
+
   nginx:
     image: nginx
     container_name: nginx
@@ -11,8 +21,11 @@ services:
       - "80:80"
     volumes:
       - /tmp/app/nginx.conf:/etc/nginx/nginx.conf:ro
-      - /tmp/app:/tmp/agent
-
+    depends_on:
+      - prometheus
+      - socat
+      - fileuploader
+      
   docker-exporter:
     image: wywywywy/docker_stats_exporter
     container_name: docker-exporter
