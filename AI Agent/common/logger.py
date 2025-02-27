@@ -18,7 +18,7 @@ logging.basicConfig(
                     format="%(asctime)s - %(levelname)s - %(message)s")
 
 
-#This method used to print ssh logs, it checks the length of log then print if length is greater then 0. 
+#This method will print ssh logs.
 def printLOG(out, err):
     logger.info("\n\n"+ str(out) + "\n\n")
     logger.error("\n\n"+ str(err)+ "\n\n")

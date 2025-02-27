@@ -13,29 +13,26 @@ To run container specific operations through interface use DockerHelper.
 class ToolsAPI:
     def __init__(self):
         dockerHostConfig = configparser.RawConfigParser()
-        dockerHostConfig.read(DOCKER_HOST_CONFIG)
-        
-        hostname = dockerHostConfig.get("host", "name")
-        apiVersion = dockerHostConfig.get("docker_api", "api_version")
-        protocol = dockerHostConfig.get("docker_api", "protocol")
-                
-        self.dockerInterfaceHelper = DockerInterfaceHelper(hostname=hostname, proto=protocol, api_version=apiVersion)
-        self.dockerHostHelper = DockerHostHelper(hostname)
+        dockerHostConfig.read(DOCKER_HOST_CONFIG)   
+        self.hostname = dockerHostConfig.get("host", "name")
+        self.sshport = dockerHostConfig.get("host", "port") 
+        self.apiVersion = dockerHostConfig.get("docker_api", "api_version")
+        self.protocol = dockerHostConfig.get("docker_api", "protocol")
+            
      
-    '''
-    This method will run "https://raw.githubusercontent.com/ShyamPrgrmr/Performance-testing-ai-agent/refs/heads/main/Node%20Agent/script.sh" file on docker host which will run the prometheus, docker-exporter and socat containers on system. 
-    '''
     def initDockerHost(self):
+        dockerHostHelper = DockerHostHelper(self.hostname,int(self.sshport))
         commands = []
         self.__config = configparser.RawConfigParser() 
         self.__config.read(APPLICATIONCONFIG)
         commands.append(self.__config.get(DOCKERHOST,DOWNLOADSHELLSCRIPT))
         commands.append(self.__config.get(DOCKERHOST,RUNSHELLSCRIPT))
-        outputs = self.dockerHostHelper.executeCommands(commands)
-        return self.dockerHostHelper
+        outputs = dockerHostHelper.executeCommands(commands)
+        return dockerHostHelper
 
     def initDockerInterface(self):
-        return self.dockerInterfaceHelper
+        dockerInterfaceHelper = DockerInterfaceHelper(hostname=self.hostname, proto=self.protocol, api_version=self.apiVersion)
+        return dockerInterfaceHelper
 
 if __name__=="__main__":
     pass

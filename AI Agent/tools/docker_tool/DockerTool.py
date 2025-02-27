@@ -2,6 +2,7 @@ import configparser
 from .CreateContainer import CreateContainer 
 from .GetContainers import GetContainers 
 from .KillContainer import killContainer 
+from .UpdateContainer import UpdateContainer
 from .container_ops_type.ContainerOperations import ContainerOperations as ContainerOPS
 from constants.constants import DOCKER_API_ENDPOINTS_CONFIG
 from common.logger import logger
@@ -18,6 +19,7 @@ class DockerTool:
         self.__createContainer = CreateContainer(self.endpoint, self.__getPath(ContainerOPS.MAIN.value, ContainerOPS.CREATE.value), self.__getPath(ContainerOPS.MAIN.value,ContainerOPS.START.value) )
         self.__getContainers = GetContainers(self.endpoint, self.__getPath(ContainerOPS.MAIN.value, ContainerOPS.GET.value))
         self.__killContainer = killContainer(self.endpoint, self.__getPath(ContainerOPS.MAIN.value, ContainerOPS.KILL.value), self.__getPath(ContainerOPS.MAIN.value, ContainerOPS.REMOVE.value))
+        self.__updateContainer = UpdateContainer(self.endpoint, self.__getPath(ContainerOPS.MAIN.value, ContainerOPS.UPDATE.value))
         logger.info("Intialized Docker Interface")
 
 
@@ -33,8 +35,11 @@ class DockerTool:
     def getContainer(self, id):
         return self.__getContainers.get(id)
 
+    def updateContainer(self,id, request):
+        return self.__updateContainer.update(id,request)
+
     def __getApiEndpoint(self, hostname, proto, api_version):
-        endpoint = proto + "://" + hostname + "/" + api_version
+        endpoint = proto + "://" + hostname + "/socat/"+ api_version
         return endpoint
     
     def __getPath(self, type, subtype):

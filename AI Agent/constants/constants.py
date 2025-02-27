@@ -20,3 +20,12 @@ APPLICATIONCONFIG = "./config/application.ini"
 DOCKERHOST = "docker_host"
 DOWNLOADSHELLSCRIPT = "download_shell_script"
 RUNSHELLSCRIPT = "run_shell_script"
+
+'''
+Used in : (/tools/docker_tools/container_ops_type/UpdateContainerRequests.py)
+'''
+
+RESOURCECONSTRAINTS = "./data/resource_constraints.json"
+
+
+

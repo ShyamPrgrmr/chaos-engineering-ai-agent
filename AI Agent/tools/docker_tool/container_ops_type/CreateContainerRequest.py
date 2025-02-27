@@ -29,23 +29,14 @@ class CreateContainerRequest:
                 },
                 
                 "HostConfig": {
-                "PortBindings": self.getPorts(self.hostport, self.containerPort),
-                "restartPolicy":{
-                    "Name" : self.restartPolicy
-                },
-                
-                "Binds": self.volumes,
-                "NetworkMode": self.network
-                },
-                "NetworkingConfig": {
-                "EndpointsConfig": {
-                self.network: {
-                        "IPAMConfig": {
-                            "IPv4Address": self.ip
-                        }
-                    }
+                    "PortBindings": self.getPorts(self.hostport, self.containerPort),
+                    "restartPolicy":{
+                        "Name" : self.restartPolicy
+                    },
+                    
+                    "Binds": self.volumes,
+                    "NetworkMode": self.network
                 }
-            } 
         }
         
         return json.dumps(object)

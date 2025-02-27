@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
 
   fileuploader:
@@ -59,3 +57,4 @@ services:
 networks:
   chaos-network:
     driver: bridge
+    name: app_chaos-network

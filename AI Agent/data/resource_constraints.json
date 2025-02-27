@@ -1,17 +1,17 @@
 {
     "resourceConstraints" : {
         "cpu":[
-            {"id":1, "constraint": "NanoCpus", "description": "CPU quota in units of 10-9 CPUs."}, 
-            {"id":2, "constraint": "CpuQuota", "description":"Microseconds of CPU time that the container can get in a CPU period."},
-            {"id":3, "constraint": "CpuPeriod", "description":"The length of a CPU period in microseconds."},
-            {"id":4, "constraint": "CpuShares", "description":"An integer value representing this container's relative CPU weight versus other containers."},
-            {"id":5, "constraint": "CpusetMems", "description":"Memory nodes (MEMs) in which to allow execution (0-3, 0,1). Only effective on NUMA systems."}
+            {"id":"cpu_1", "constraint": "NanoCpus", "description": "CPU quota in units of 10-9 CPUs.", "datatype":"integer", "bounds":"NanoCpus value should be in bytes, ex. 1 CPU = 1,000,000,000 (1 billion) NanoCPUs"}, 
+            {"id":"cpu_2", "constraint": "CpuQuota", "description":"Microseconds of CPU time that the container can get in a CPU period.", "datatype":"integer"},
+            {"id":"cpu_3", "constraint": "CpuPeriod", "description":"The length of a CPU period in microseconds.", "datatype":"integer"},
+            {"id":"cpu_4", "constraint": "CpuShares", "description":"An integer value representing this container's relative CPU weight versus other containers.", "datatype":"integer"},
+            {"id":"cpu_5", "constraint": "CpusetMems", "description":"Memory nodes (MEMs) in which to allow execution (0-3, 0,1). Only effective on NUMA systems.", "datatype":"string"}
         ],
         "memory":[
-            {"id":1, "constraint": "Memory", "description":"The maximum amount of memory the container can use."},
-            {"id":2, "constraint": "MemoryReservation", "description":"Memory soft limit in bytes."},
-            {"id":3, "constraint": "MemorySwap", "description":"Controls the total memory + swap usage."},
-            {"id":4, "constraint": "MemorySwappiness", "description":"Tune a container's memory swappiness behavior. Accepts an integer between 0 and 100."}
+            {"id":"memory_1", "constraint": "Memory", "description":"The maximum amount of memory the container can use.", "datatype":"integer", "bounds":"Memory value should be in bytes, ex. 512MB = 512 * 1024 * 1024 = 536870912 bytes"},
+            {"id":"memory_2", "constraint": "MemoryReservation", "description":"Memory soft limit in bytes.", "datatype":"integer"},
+            {"id":"memory_3", "constraint": "MemorySwap", "description":"Controls the total memory + swap usage.", "datatype":"integer"},
+            {"id":"memory_4", "constraint": "MemorySwappiness", "description":"Tune a container's memory swappiness behavior.", "datatype":"integer", "bounds":"Accepts an integer between 0 and 100."}
         ]
     }
 }
