@@ -1,18 +1,9 @@
 # How to initialize docker host ? 
 
-## You will need one linux host (To do chaos test) and other will be your machine on which you will run AI Agent. 
+1. Run `curl https://raw.githubusercontent.com/ShyamPrgrmr/chaos-engineering-ai-agent/refs/heads/main/Node%20Agent/startup.sh > startup.sh` command on your docker host (note - Please make sure that your docker host has docker and docker-compose installed on it).  
 
-1. Run below command in your docker host (Note - It is fine if you don't have docker installed on host) to fetch initialization script.
-> curl https://raw.githubusercontent.com/ShyamPrgrmr/Performance-testing-ai-agent/refs/heads/main/Node%20Agent/initscript.sh > initscript.sh
+2. Run `sh startup.sh` to install required settings. 
 
-2. Then run below command. 
-> sudo bash initscript.sh 
+3. Now run, `docker-compose up -d` to start containers. 
 
-3. Once you the setup is completed, run below command to get private key and copy the content. 
-> sudo cat /root/ai-agent.pem 
-
-4. Now, create a folder and file `./Tools API/helper/host/creds/passkey.pem` and paste the copied content in file. 
-
-5. Create `./Tools API/config/docker-host.conf` and write the `hostname="<your-host-name>"` or ip in hostname field. 
-
-5. Run the `python main.py` in `./Tools API/` folder. 
+3. Update your hostname in `./AI Agent/config/docker-host.ini` under host (Append the host with port 80 ex.hostname:80 and do not add any protocol like "http" or "https" in hostname). 

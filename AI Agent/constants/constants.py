@@ -27,5 +27,10 @@ Used in : (/tools/docker_tools/container_ops_type/UpdateContainerRequests.py)
 
 RESOURCECONSTRAINTS = "./data/resource_constraints.json"
 
+'''
+Used in : (/tools/docker_tools/CreateContainer.py)
+'''
+APPLICATIONNAME = "Application"
+
 
 

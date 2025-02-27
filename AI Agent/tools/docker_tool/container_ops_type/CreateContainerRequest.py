@@ -1,42 +1,48 @@
 import json
+from typing import List
 
 class CreateContainerRequest:
-    def __init__(self, name, image, hostport, containerport, ip, network, restartPolicy, volumes):
-        self.name = name
-        self.image = image
-        self.hostport = hostport
-        self.containerPort = containerport
-        self.ip = ip
-        self.network = network
-        self.restartPolicy= restartPolicy
-        self.volumes= volumes
+    def __init__(self):
+        self.request = {}
 
     def getPorts(self, hostport, containerPort):
         return {
-            containerPort : [
+            containerPort+"/tcp" : [
                 {
                     "HostPort" : hostport
                 }
             ]
         }
-
-    def getJson(self):
-        object = {
-                "Name" : self.name, 
-                "Image" : self.image, 
-                "ExposedPorts": {
-                    self.containerPort: {}
-                },
-                
-                "HostConfig": {
-                    "PortBindings": self.getPorts(self.hostport, self.containerPort),
+    
+    def setName(self, name:str):
+        self.request.update({"Name":name})
+        return self
+    
+    def setImage(self, image:str):
+        self.request.update({"Image":image})
+        return self
+    
+    def setExposedPort(self, containerPort:str):
+        self.request.update({
+            "ExposedPorts": {
+                    containerPort: {}
+            }
+        })
+        return self
+    
+    def setHostConfig(self, hostPort:str, containerPort:str, restartPolicy:str, binds:List[str], network:str):
+        self.request.update({
+            "HostConfig": {
+                    "PortBindings": self.getPorts(hostPort, containerPort),
                     "restartPolicy":{
-                        "Name" : self.restartPolicy
+                        "Name" : restartPolicy
                     },
-                    
-                    "Binds": self.volumes,
-                    "NetworkMode": self.network
+                    "Binds": binds,
+                    "NetworkMode": network
                 }
-        }
-        
-        return json.dumps(object)
+        })
+        return self
+    
+    def build(self):
+        return json.dumps(self.request)
+    

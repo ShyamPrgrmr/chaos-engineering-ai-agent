@@ -1,6 +1,7 @@
 import requests, json
 from constants.httpresponses import HTTPResponses
 from common.logger import logger
+from constants.constants import APPLICATIONNAME
 
 
 class CreateContainer():
@@ -11,7 +12,7 @@ class CreateContainer():
         
     def create(self, request):
         logger.info("Creating container with request : "+ str(request))       
-        response = requests.post(self.endpoint+self.path+"?name="+request.name, json=json.loads(request.getJson()), headers={"content-type":"application/json"}) 
+        response = requests.post(self.endpoint+self.path+"?name="+APPLICATIONNAME, json=json.loads(request), headers={"content-type":"application/json"}) 
         if(response.status_code >= 200 and response.status_code <= 299 ):
             temp = json.dumps(response.json())
             data = json.loads(temp)
